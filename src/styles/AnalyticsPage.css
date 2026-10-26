@@ -1,0 +1,18 @@
+/* Khu vực tiêu đề của mỗi biểu đồ */
+.chart-header {
+    margin-bottom: 20px;
+}
+
+/* Tiêu đề chính */
+.chart-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+/* Phụ đề mô tả */
+.chart-header p {
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.5;
+}

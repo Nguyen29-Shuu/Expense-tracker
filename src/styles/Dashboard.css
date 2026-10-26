@@ -1,0 +1,48 @@
+.dashboard-grid{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.dashboard-card{
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px gba(0,0,0,0.08);
+}
+
+.income-card{
+    border-left: 4px solid #16a34a;
+}
+
+.expense-card{
+    border-left: 4px solid #ef4444;
+}
+
+.balance-card{
+    border-left: 4px solid #2563eb;
+}
+
+.card-title{
+    font-size: 16px;
+    color: rgb(92, 92, 89);
+    margin: 0 0 12px;
+}
+
+.card-amount{
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.income-card .card-amount{
+    color: #16a34a;
+}
+
+.expense-card .card-amount{
+    color: #ef4444;
+}
+
+.balance-card .card-amount{
+    color: #2563eb;
+}

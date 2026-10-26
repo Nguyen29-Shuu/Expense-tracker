@@ -1,0 +1,68 @@
+.transaction-form{
+    background-color: aliceblue;
+    padding: 24px;
+    box-shadow: 0 4px 12px gba(0,0,0,0.08);
+    width: 100%;
+    border-radius: 12px;
+}
+.form-group{
+    display: flex;
+    flex-direction: column;
+    gap:8px
+}
+
+.transaction-form input,
+.transaction-form select {
+    width: 100%;
+    box-shadow: 0 4px 12px gba(0,0,0,0.08);
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    box-sizing: border-box;
+    padding: 12px;
+}
+
+.transaction-form input:focus,
+.transaction-form select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow	:0 0 0 3px rgba(37, 99, 235, 0.15)
+}
+
+.submit-btn{
+    background-color: #2563eb;
+    color: #ffffff;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    margin: 8px 0;
+}
+
+/* Khi rê chuột vào nút Submit, đổi sang xanh đậm */
+.submit-btn:hover {
+    background-color: #1d4ed8;
+}
+
+.cancel-btn {
+    background-color: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+}
+
+.cancel-btn:hover{
+    background-color: #e2e8f0;
+}
+
+label{
+    font-size: 16px;
+    text-align: left;
+    padding: 3px;
+}
