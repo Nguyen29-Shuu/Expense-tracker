@@ -75,14 +75,15 @@ function App() {
   function handleAddTransaction(
     title: string,
     amount: number,
-    type: 'income' | 'expense'
+    type: 'income' | 'expense',
+    category:string
   ) {
     const newTransaction: Transaction = {
       id: crypto.randomUUID(),
       title,
       amount,
       type,
-      category: type === 'income' ? 'Income' : 'Food',
+      category,
       date: new Date().toISOString().slice(0, 10),
     }
     setTransactions((previousTransactions) => [...previousTransactions, newTransaction])
@@ -107,14 +108,15 @@ function App() {
     }
   }
   
-  function handleUpdateTransaction(id:string, title:string, amount:number, type:'income'|'expense'){
+  function handleUpdateTransaction(id:string, title:string, amount:number, type:'income'|'expense',category:string){
     setTransactions((pervTransaction)=>
       pervTransaction.map((transaction)=>
         transaction.id===id?{
           ...transaction,
           title:title,
           amount:amount,
-          type:type
+          type:type,
+          category:category
         }:transaction)
       );
     setEditingTransaction(null)

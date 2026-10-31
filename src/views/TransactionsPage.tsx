@@ -7,8 +7,8 @@ interface TransactionsPageProps {
   onEdit:(id:string)=>void;
   editingTransaction:Transaction|null;
   onCancelEdit:()=>void;
-  onAddTransaction:(title:string, amount:number,type:'income'|'expense')=>void;
-  onUpdateTransaction:(id:string,title:string,amount:number,type:'income'|'expense')=>void
+  onAddTransaction:(title:string, amount:number,type:'income'|'expense',category:string)=>void;
+  onUpdateTransaction:(id:string,title:string,amount:number,type:'income'|'expense',category:string)=>void
 }
 
 function TransactionsPage(props:TransactionsPageProps){
