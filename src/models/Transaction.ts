@@ -7,11 +7,11 @@ export interface Transaction{
     date:string
 }
 
-const transaction1: Transaction={
-    id:"1",
-    title:"Ăn sáng",
-    amount:30000,
-    type:'expense',
-    category:'"Food',
-    date:"2026-10-20"
-}
+// const transaction1: Transaction={
+//     id:"1",
+//     title:"Ăn sáng",
+//     amount:30000,
+//     type:'expense',
+//     category:'"Food',
+//     date:"2026-10-20"
+// }

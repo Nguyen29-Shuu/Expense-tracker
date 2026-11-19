@@ -16,7 +16,11 @@ function Navigation(){
                 to="/analytics" end>
                     Analytics
             </NavLink>
+            <NavLink className={({ isActive }) => isActive ? "active" : ""}
+                to="/budgets" end>
+                    Budgets
+            </NavLink>
         </nav>
     )
-}
+}   
 export default Navigation

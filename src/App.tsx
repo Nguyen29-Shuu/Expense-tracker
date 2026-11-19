@@ -8,6 +8,9 @@ import DashboardPage from './views/DashboardPage';
 import TransactionsPage from './views/TransactionsPage';
 import Navigation from './components/Navigation';
 import AnalyticsPage from './views/AnalyticsPage';
+import BudgetPage from './views/BudgetsPage';
+// Ngân sách
+import type { Budget } from './models/Budget';
 
 function App() {
   
@@ -70,7 +73,127 @@ function App() {
 });
 
   const [editingTransaction, setEditingTransaction] =
+  
   useState<Transaction | null>(null);
+  // Quản Lý Giao dịch đang chỉnh sửa
+  const [budgets, setBudgets] = useState<Budget[]>(()=>{
+    const savedBudgets=localStorage.getItem("Budgets");
+    if(savedBudgets!==null){
+      try{
+        const parsedBudgets=JSON.parse(savedBudgets);
+        if(Array.isArray(parsedBudgets)){
+          const isValid=parsedBudgets.every((budget)=>{
+            return budget!==null &&
+              typeof budget==='object'&&
+               typeof budget.id==='string'&&
+                typeof budget.category==='string'&&
+                 typeof budget.limit==='number'&&
+                  Number.isFinite(budget.limit)&&
+                   typeof budget.month==='string';
+          })
+          if(isValid){
+            return parsedBudgets
+          }
+          
+        }
+      }
+      catch(error)
+      {
+        console.error("Không thể đọc dữ liệu LocalStorage:", error);
+      }
+
+    }
+    return [
+    {
+        id: "budget-1",
+        category: "Food",
+        limit: 300000,
+        month: "2026-10"
+    },
+    {
+        id: "budget-2",
+        category: "transport",
+        limit: 500000,
+        month: "2026-10"
+    },
+    {
+        id: "budget-3",
+        category: "housing",
+        limit: 2500000,
+        month: "2026-10"
+    },
+    {
+        id: "budget-4",
+        category: "food",
+        limit: 3000000,
+        month: "2026-11"
+    }
+  ];
+  });
+
+
+  useEffect(()=>{
+    localStorage.setItem("Budgets",JSON.stringify(budgets));
+  },[budgets])
+
+  function handleAddBudget(category:string, limit:number, month:string):boolean{
+    const newBudget: Budget = {
+      id: crypto.randomUUID(),
+      category,
+      limit,
+      month
+    }
+      const isDuplicate = budgets.some((budget) =>
+        budget.category === newBudget.category && budget.month === newBudget.month
+      );
+
+      if (isDuplicate) {
+        alert("Ngân sách cho danh mục và tháng này đã tồn tại!");
+        return false;
+      }
+      setBudgets((previousBudgets) => [...previousBudgets, newBudget])
+      return true;
+  }
+
+    // Quản lý ngân sách đang chỉnh sửa
+  const [editingBudget, setEditingBudget] =
+    useState<Budget | null>(null);
+
+  function handleEditBudget(id:string){
+    const selectedBudget = budgets.find((budget) => 
+      budget.id === id);
+    if (selectedBudget) {
+      setEditingBudget(selectedBudget);
+    }
+
+
+  }
+
+  function handleUpdateBudget(id:string, category:string, limit:number, month:string){
+    setBudgets((prevBudgets)=>
+      prevBudgets.map((budget)=>
+        budget.id===id?{
+          ...budget,
+          category:category,
+          limit:limit,
+          month:month
+        }:budget)
+      );
+    setEditingBudget(null)
+  }
+
+  function handleCancelEditBudget() {
+    setEditingBudget(null)
+  }
+
+  function handleDeleteBudget(id:string){
+    const confirmed = window.confirm("Bạn có chắc muốn xóa?");
+    if (!confirmed) {
+      return;
+    }
+    setBudgets((prevBudgets)=>
+    prevBudgets.filter((budget)=>budget.id!==id))
+  }
 
   function handleAddTransaction(
     title: string,
@@ -86,6 +209,7 @@ function App() {
       category,
       date: new Date().toISOString().slice(0, 10),
     }
+    console.log("Giao dịch mới đã được thêm:", newTransaction);
     setTransactions((previousTransactions) => [...previousTransactions, newTransaction])
   }
 
@@ -187,6 +311,20 @@ function App() {
           element={<AnalyticsPage 
             transactions={transactions}
           />}/>
+        {/* //Page Ngân sách */}
+        <Route path="/budgets"
+          element={<BudgetPage 
+            budgets={budgets}
+            onSetBudgets={setBudgets}
+            transactions={transactions}
+            onAddBudget={handleAddBudget}
+            editingBudget={editingBudget}
+            onEditBudget={handleEditBudget}
+            onUpdateBudget={handleUpdateBudget}
+            onCancelEditBudget={handleCancelEditBudget}
+            onDeleteBudget={handleDeleteBudget}
+          />}
+        />
       </Routes>
       
     </div>
